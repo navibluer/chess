@@ -1,0 +1,121 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: black;
+  color: #9b4810;
+  text-align: center;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.outter1 {
+  display: table;
+  margin: 50px auto;
+  padding: 2px;
+  border: 3px solid #9b4810;
+}
+
+.outter2 {
+  padding: 12px;
+  border: 1px solid #9b4810;
+}
+
+.checkerboard {
+  display: table;
+  border: 2px solid #9b4810;
+}
+
+.river {
+  height: 60px;
+  border: 1px solid #9b4810;
+  position: relative;
+}
+
+.river span {
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.check {
+  float: left;
+  width: 60px;
+  height: 60px;
+  border: 0.5px solid #9b4810;
+  position: relative;
+}
+
+.slash::before, .slash::after {
+  content: '';
+  display: block;
+  width: 171.11984px;
+  border-top: 1px solid #9b4810;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.slash::after {
+  -webkit-transform: rotate(135deg) translate(-86.05992px, -85.55992px);
+          transform: rotate(135deg) translate(-86.05992px, -85.55992px);
+}
+
+.rb {
+  width: 6px;
+  height: 6px;
+  margin: 3px;
+  position: absolute;
+  border-right: 1px solid #9b4810;
+  border-bottom: 1px solid #9b4810;
+  right: 0;
+  bottom: 0;
+}
+
+.lb {
+  width: 6px;
+  height: 6px;
+  margin: 3px;
+  position: absolute;
+  border-left: 1px solid #9b4810;
+  border-bottom: 1px solid #9b4810;
+  left: 0;
+  bottom: 0;
+}
+
+.rt {
+  width: 6px;
+  height: 6px;
+  margin: 3px;
+  position: absolute;
+  border-right: 1px solid #9b4810;
+  border-top: 1px solid #9b4810;
+  right: 0;
+  top: 0;
+}
+
+.lt {
+  width: 6px;
+  height: 6px;
+  margin: 3px;
+  position: absolute;
+  border-left: 1px solid #9b4810;
+  border-top: 1px solid #9b4810;
+  left: 0;
+  top: 0;
+}
+
+.reverse {
+  -webkit-transform: rotate(180deg) translateY(-244px);
+          transform: rotate(180deg) translateY(-244px);
+}
+/*# sourceMappingURL=style.css.map */

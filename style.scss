@@ -1,0 +1,120 @@
+$bg_color: black;
+$primary_color: #9b4810;
+$dark_color: #9b4810;
+$bright_color: #FF4600;
+$check_size: 60px;
+$border_base: .5px;
+
+@function sqrt($num: 10) {
+  	$x0: 1;
+  	$x1: $x0;
+  	@for $i from 1 through 10 {
+    	$x1: $x0 - ($x0 * $x0 - abs($num)) / (2 * $x0);
+    	$x0: $x1;
+  	}
+  	@return $x1;
+}
+
+
+html, body {
+	height: 100%;
+	margin: 0;
+}
+body {
+	overflow: hidden;
+	background: $bg_color;
+	color: $primary_color;
+	text-align: center;
+}
+.clearfix {
+	clear: both;
+}
+.outter1 {
+	display: table;
+	margin: 50px auto;
+	padding: $border_base*4;
+	border: $border_base*6 solid $primary_color;;
+}
+.outter2 {
+	// display: table;
+	padding: $border_base*24;
+	border: $border_base*2 solid $primary_color;
+}
+.checkerboard {
+	display: table;
+	border: $border_base*4 solid $primary_color;
+}
+// .board {
+
+// }
+.river {
+	height: $check_size;
+	border: $border_base*2 solid $primary_color;
+	position: relative;
+	span {
+		font-size: 24px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+.check {
+	float: left;
+	width: $check_size;
+	height: $check_size;
+	border: $border_base solid $primary_color;
+	position: relative;
+}
+.slash::before{
+	content: '';
+	display: block;
+	width: ($check_size+$border_base)*2*sqrt($num: 2);
+	// height: ($check_size+$border_base)*2*sqrt($num: 2);
+	border-top: $border_base*2 solid $primary_color;
+	transform-origin: top left;
+	transform: rotate(45deg);
+}
+.slash::after{
+	@extend .slash::before;
+	// transform-origin: top;
+	$translate: -($check_size+$border_base)*sqrt($num: 2);
+	transform: rotate(135deg) translate($translate - $border_base, $translate);
+}
+@mixin smallL {
+	width: 6px;
+	height: 6px;
+	margin: $border_base*6;
+	position: absolute;
+}
+.rb {
+	@include smallL;
+	border-right: $border_base*2 solid $primary_color;
+	border-bottom: $border_base*2 solid $primary_color;
+	right: 0;
+	bottom: 0;
+}
+.lb {
+	@include smallL;
+	border-left: $border_base*2 solid $primary_color;
+	border-bottom: $border_base*2 solid $primary_color;
+	left: 0;
+	bottom: 0;
+}
+.rt {
+	@include smallL;
+	border-right: $border_base*2 solid $primary_color;
+	border-top: $border_base*2 solid $primary_color;
+	right: 0;
+	top: 0;
+}
+.lt {
+	@include smallL;
+	border-left: $border_base*2 solid $primary_color;
+	border-top: $border_base*2 solid $primary_color;
+	left: 0;
+	top: 0;
+}
+.reverse {
+	transform: rotate(180deg) translateY(-($check_size*4 + $border_base*8));
+}
