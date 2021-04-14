@@ -1,7 +1,6 @@
-$bg_color: black;
-$primary_color: #9b4810;
+$bg_color: #FFF7E0;
+$primary_color: #A57F48;
 $dark_color: #9b4810;
-$bright_color: #FF4600;
 $check_size: 60px;
 $border_base: .5px;
 
@@ -15,6 +14,11 @@ $border_base: .5px;
   	@return $x1;
 }
 
+* {
+	position: relative;
+	box-sizing: border-box;
+	user-select: none;
+}
 
 html, body {
 	height: 100%;
@@ -26,17 +30,19 @@ body {
 	color: $primary_color;
 	text-align: center;
 }
+.gamespace {
+	margin-top: 50px;
+}
 .clearfix {
 	clear: both;
 }
 .outter1 {
-	display: table;
-	margin: 50px auto;
+	display: inline-block;
+	margin: 20px 50px;
 	padding: $border_base*4;
 	border: $border_base*6 solid $primary_color;;
 }
 .outter2 {
-	// display: table;
 	padding: $border_base*24;
 	border: $border_base*2 solid $primary_color;
 }
@@ -50,7 +56,6 @@ body {
 .river {
 	height: $check_size;
 	border: $border_base*2 solid $primary_color;
-	position: relative;
 	span {
 		font-size: 24px;
 		position: absolute;
@@ -64,22 +69,19 @@ body {
 	width: $check_size;
 	height: $check_size;
 	border: $border_base solid $primary_color;
-	position: relative;
 }
 .slash::before{
 	content: '';
 	display: block;
-	width: ($check_size+$border_base)*2*sqrt($num: 2);
-	// height: ($check_size+$border_base)*2*sqrt($num: 2);
+	width: $check_size*2*sqrt($num: 2);
 	border-top: $border_base*2 solid $primary_color;
 	transform-origin: top left;
 	transform: rotate(45deg);
 }
 .slash::after{
 	@extend .slash::before;
-	// transform-origin: top;
-	$translate: -($check_size+$border_base)*sqrt($num: 2);
-	transform: rotate(135deg) translate($translate - $border_base, $translate);
+	$translate: -$check_size*sqrt($num: 2);
+	transform: rotate(135deg) translate($translate, $translate + $border_base);
 }
 @mixin smallL {
 	width: 6px;
@@ -116,5 +118,62 @@ body {
 	top: 0;
 }
 .reverse {
-	transform: rotate(180deg) translateY(-($check_size*4 + $border_base*8));
+	transform: rotate(180deg) translateY(-$check_size*4);
+}
+.route {
+	z-index: 999;
+	position: absolute;
+	top: -$check_size/2;
+	left: -$check_size/2;
+	width: $check_size*9;
+}
+.spot {
+	float: left;
+	width: $check_size;
+	height: $check_size;
+	border-radius: 50%;
+}
+@mixin chessman($color) {
+	display: inline-block;
+	$chessman_size: 0.9;
+	font-size: $check_size*$chessman_size/2;
+	width: $check_size*$chessman_size;
+	height: $check_size*$chessman_size;
+	margin: $check_size*(1-$chessman_size)/2;
+	background-color: $bg_color;
+	border-radius: 50%;
+	border: $border_base*12 double $color;
+	color: $color;
+	&:hover {
+		// background-color: darken($bg_color, 5%);
+		cursor: pointer;
+	}
+	&:active {
+		// font-weight: bold;
+		background-color: darken($bg_color, 10%);
+	}
+}
+.chessman_black {
+	@include chessman(#5C8823);
+}
+.chessman_red {
+	@include chessman((#E96C62))
+}
+.active {
+	background-color: darken($bg_color, 2%);
+	transform: scale(1.1);
+}
+.eaten {
+	display: inline-block;
+	width: $check_size*2;
+}
+#eaten_red {
+	vertical-align: top;
+}
+.valid_target {
+	background-color: rgba($color: #000000, $alpha: .05);
+	transform: scale(.6);
+	&:hover {
+		cursor: pointer;
+	}
 }

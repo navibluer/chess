@@ -1,3 +1,13 @@
+* {
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -5,9 +15,13 @@ html, body {
 
 body {
   overflow: hidden;
-  background: black;
-  color: #9b4810;
+  background: #FFF7E0;
+  color: #A57F48;
   text-align: center;
+}
+
+.gamespace {
+  margin-top: 50px;
 }
 
 .clearfix {
@@ -15,26 +29,25 @@ body {
 }
 
 .outter1 {
-  display: table;
-  margin: 50px auto;
+  display: inline-block;
+  margin: 20px 50px;
   padding: 2px;
-  border: 3px solid #9b4810;
+  border: 3px solid #A57F48;
 }
 
 .outter2 {
   padding: 12px;
-  border: 1px solid #9b4810;
+  border: 1px solid #A57F48;
 }
 
 .checkerboard {
   display: table;
-  border: 2px solid #9b4810;
+  border: 2px solid #A57F48;
 }
 
 .river {
   height: 60px;
-  border: 1px solid #9b4810;
-  position: relative;
+  border: 1px solid #A57F48;
 }
 
 .river span {
@@ -50,15 +63,14 @@ body {
   float: left;
   width: 60px;
   height: 60px;
-  border: 0.5px solid #9b4810;
-  position: relative;
+  border: 0.5px solid #A57F48;
 }
 
 .slash::before, .slash::after {
   content: '';
   display: block;
-  width: 171.11984px;
-  border-top: 1px solid #9b4810;
+  width: 169.70563px;
+  border-top: 1px solid #A57F48;
   -webkit-transform-origin: top left;
           transform-origin: top left;
   -webkit-transform: rotate(45deg);
@@ -66,8 +78,8 @@ body {
 }
 
 .slash::after {
-  -webkit-transform: rotate(135deg) translate(-86.05992px, -85.55992px);
-          transform: rotate(135deg) translate(-86.05992px, -85.55992px);
+  -webkit-transform: rotate(135deg) translate(-84.85281px, -84.35281px);
+          transform: rotate(135deg) translate(-84.85281px, -84.35281px);
 }
 
 .rb {
@@ -75,8 +87,8 @@ body {
   height: 6px;
   margin: 3px;
   position: absolute;
-  border-right: 1px solid #9b4810;
-  border-bottom: 1px solid #9b4810;
+  border-right: 1px solid #A57F48;
+  border-bottom: 1px solid #A57F48;
   right: 0;
   bottom: 0;
 }
@@ -86,8 +98,8 @@ body {
   height: 6px;
   margin: 3px;
   position: absolute;
-  border-left: 1px solid #9b4810;
-  border-bottom: 1px solid #9b4810;
+  border-left: 1px solid #A57F48;
+  border-bottom: 1px solid #A57F48;
   left: 0;
   bottom: 0;
 }
@@ -97,8 +109,8 @@ body {
   height: 6px;
   margin: 3px;
   position: absolute;
-  border-right: 1px solid #9b4810;
-  border-top: 1px solid #9b4810;
+  border-right: 1px solid #A57F48;
+  border-top: 1px solid #A57F48;
   right: 0;
   top: 0;
 }
@@ -108,14 +120,94 @@ body {
   height: 6px;
   margin: 3px;
   position: absolute;
-  border-left: 1px solid #9b4810;
-  border-top: 1px solid #9b4810;
+  border-left: 1px solid #A57F48;
+  border-top: 1px solid #A57F48;
   left: 0;
   top: 0;
 }
 
 .reverse {
-  -webkit-transform: rotate(180deg) translateY(-244px);
-          transform: rotate(180deg) translateY(-244px);
+  -webkit-transform: rotate(180deg) translateY(-240px);
+          transform: rotate(180deg) translateY(-240px);
+}
+
+.route {
+  z-index: 999;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 540px;
+}
+
+.spot {
+  float: left;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.chessman_black {
+  display: inline-block;
+  font-size: 27px;
+  width: 54px;
+  height: 54px;
+  margin: 3px;
+  background-color: #FFF7E0;
+  border-radius: 50%;
+  border: 6px double #5C8823;
+  color: #5C8823;
+}
+
+.chessman_black:hover {
+  cursor: pointer;
+}
+
+.chessman_black:active {
+  background-color: #ffeaad;
+}
+
+.chessman_red {
+  display: inline-block;
+  font-size: 27px;
+  width: 54px;
+  height: 54px;
+  margin: 3px;
+  background-color: #FFF7E0;
+  border-radius: 50%;
+  border: 6px double #E96C62;
+  color: #E96C62;
+}
+
+.chessman_red:hover {
+  cursor: pointer;
+}
+
+.chessman_red:active {
+  background-color: #ffeaad;
+}
+
+.active {
+  background-color: #fff4d6;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.eaten {
+  display: inline-block;
+  width: 120px;
+}
+
+#eaten_red {
+  vertical-align: top;
+}
+
+.valid_target {
+  background-color: rgba(0, 0, 0, 0.05);
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+.valid_target:hover {
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
