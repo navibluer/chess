@@ -162,10 +162,6 @@ body {
   cursor: pointer;
 }
 
-.chessman_black:active {
-  background-color: #ffeaad;
-}
-
 .chessman_red {
   display: inline-block;
   font-size: 27px;
@@ -180,10 +176,6 @@ body {
 
 .chessman_red:hover {
   cursor: pointer;
-}
-
-.chessman_red:active {
-  background-color: #ffeaad;
 }
 
 .active {
@@ -201,10 +193,17 @@ body {
   vertical-align: top;
 }
 
-.valid_target {
+.valid_target::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
   background-color: rgba(0, 0, 0, 0.05);
-  -webkit-transform: scale(0.6);
-          transform: scale(0.6);
+  border-radius: 50%;
 }
 
 .valid_target:hover {

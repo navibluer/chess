@@ -148,10 +148,6 @@ body {
 		// background-color: darken($bg_color, 5%);
 		cursor: pointer;
 	}
-	&:active {
-		// font-weight: bold;
-		background-color: darken($bg_color, 10%);
-	}
 }
 .chessman_black {
 	@include chessman(#5C8823);
@@ -171,8 +167,17 @@ body {
 	vertical-align: top;
 }
 .valid_target {
-	background-color: rgba($color: #000000, $alpha: .05);
-	transform: scale(.6);
+	&::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: $check_size*.6;
+		height: $check_size*.6;
+		background-color: rgba($color: #000000, $alpha: .05);
+		border-radius: 50%;
+	}
 	&:hover {
 		cursor: pointer;
 	}

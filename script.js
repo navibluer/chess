@@ -48,7 +48,8 @@ $(document).ready(function(){
 		j = 0;
 		// append 9 collumn
 		while (j < 9) {
-			$('.route').append('<div id="'+i+j+'" class="spot"></div>');
+			var id = i*10+j;
+			$('.route').append('<div id="'+id+'" class="spot"></div>');
 			j++;
 		}
 		i++;
@@ -62,19 +63,19 @@ $(document).ready(function(){
 	$('#21, #27').each(function(){
 		$(this).append('<span class="chessman_black cannons">包</span>');
 	});
-	$('#00, #08').each(function(){
+	$('#0, #8').each(function(){
 		$(this).append('<span class="chessman_black rooks">車</span>');
 	});
-	$('#01, #07').each(function(){
+	$('#1, #7').each(function(){
 		$(this).append('<span class="chessman_black knights">馬</span>');
 	});
-	$('#02, #06').each(function(){
+	$('#2, #6').each(function(){
 		$(this).append('<span class="chessman_black elephants">象</span>');
 	});
-	$('#03, #05').each(function(){
+	$('#3, #5').each(function(){
 		$(this).append('<span class="chessman_black advisors">士</span>');
 	});
-	$('#04').append('<span class="chessman_black generals">將</span>');
+	$('#4').append('<span class="chessman_black generals">將</span>');
 
 	// red
 	$('#60, #62, #64, #66, #68').each(function(){
@@ -97,7 +98,145 @@ $(document).ready(function(){
 	});
 	$('#94').append('<span class="chessman_red general">帥</span>');
 
-	// move chessman
+	// Rules
+
+	// return the team of chessman
+	function chess_team(chessman) {
+		return chessman.attr('class').split(' ')[0];
+	}
+	// follow chess rules to select valid target
+	function valid_target(picked) {
+		// cannons moving rules
+		function cannons_move(direct) {
+			var next;
+			var bound;
+			var step;
+			function go() {
+				next += step;
+			}
+			switch (direct) {
+				case 'up':
+					next = picked_id-10;
+					bound = function() {return next >= 0;};
+					step = -10;
+					break;
+				case 'down':
+					next = picked_id+10;
+					bound = function() {return next <= 98;};
+					step = 10;
+					break;
+				case 'left':
+					next = picked_id-1;
+					bound = function() {return next >= Math.floor(picked_id/10)*10;};
+					step = -1;
+					break;
+				case 'right':
+					next = picked_id+1;
+					bound = function() {return next <= Math.ceil((picked_id+1)/10)*10-2;};
+					step = 1;
+					break;
+			}
+			while ($('#'+next).children().length == 0 && bound()) {
+				valid.push(next);
+				go();
+			}
+		}
+		// Moving Cases
+		const chessman = picked.children();
+		const chess_class = chessman.attr('class').split(' ')[1];
+		const picked_id = parseInt(picked.attr('id'));
+		var valid = [];
+		switch (chess_class) {
+			case 'pawns':
+				valid.push(picked_id-10);
+				break;
+			case 'cannons':
+				cannons_move('up');
+				cannons_move('down');
+				cannons_move('left');
+				cannons_move('right');
+				// // up
+				// up = picked_id-10;
+				// while ($('#'+(up)).children().length == 0 && up >= 0) {
+				// 	valid.push(up);
+				// 	up -= 10;
+				// }
+				// // down
+				// down = picked_id+10;
+				// while ($('#'+(down)).children().length == 0 && down <= 98) {
+				// 	valid.push(down);
+				// 	down += 10;
+				// }
+				// // left
+				// left = picked_id-1;
+				// while ($('#'+(left)).children().length == 0 && left >= Math.floor(picked_id/10)*10) {
+				// 	valid.push(left);
+				// 	left -= 1;
+				// }
+				// // right
+				// right = picked_id+1;
+				// while ($('#'+(right)).children().length == 0 && right <= Math.ceil((picked_id+1)/10)*10-2) {
+				// 	valid.push(right);
+				// 	right += 1;
+				// }
+				break;
+			case 'rooks':
+				cannons_move('up');
+				cannons_move('down');
+				cannons_move('left');
+				cannons_move('right');
+				// rooks eating rule
+				var x = Math.floor(picked_id/10)*10;
+				var left;
+				var right;
+				for(var chess_id = x; chess_id <= x+8; chess_id++) {
+					var wantoeat = $('#'+chess_id).children();
+					// find the chessman on x that can eat
+					if (wantoeat.length > 0 && chess_team(chessman) != chess_team(wantoeat) && chess_id < picked_id) {
+						left = chess_id;
+					}
+					if (wantoeat.length > 0 && chess_team(chessman) != chess_team(wantoeat) && chess_id > picked_id) {
+						right = chess_id;
+						break;
+					}
+				}
+				function push_can_eat(can_eat) {
+					if (can_eat) {
+						valid.push(can_eat);
+					}
+				}
+				push_can_eat(left);
+				push_can_eat(right);
+				break;
+			case 'knights':
+				break;
+			case 'elephants':
+				break;
+			case 'advisors':
+				break;
+			case 'general':
+				break;
+		}
+		// console.log(valid);
+		return valid;
+	}
+	// whether target is valid
+	function follow_rules(picked, target) {
+		const picked_id = parseInt(picked.attr('id'));
+		const target_id = parseInt(target.attr('id'));
+		var follow = false;
+		// avoid to target to the original spot
+		if (picked_id == target_id) {
+			return follow;
+		}
+		if (valid_target(picked).includes(target_id)) {
+			follow = true;
+		}
+		return follow;
+	}
+	
+
+	// CLICK
 	var hold;
 	$('.route').children().each(function(){
 		// click spot
@@ -123,10 +262,6 @@ $(document).ready(function(){
 						$(this).children().removeClass('active');
 						hold = null;
 						break;
-						
-					// follow rules but target to self team || do not follow rules but target to self team
-					// case (follow && hold.children().attr('class').split(' ')[0] == chessman.attr('class').split(' ')[0]) || (!follow && hold.children().attr('class').split(' ')[0] == chessman.attr('class').split(' ')[0]):
-
 					// target to self chessman, place the hold
 					case hold.children().attr('class').split(' ')[0] == chessman.attr('class').split(' ')[0]:
 						// remove original picked
@@ -167,94 +302,4 @@ $(document).ready(function(){
 			
 		});
 	});
-
-	// follow chess rules to select valid target
-	function valid_target(picked) {
-		const chessman = picked.children();
-		const chess_class = chessman.attr('class').split(' ')[1];
-		const picked_id = parseInt(picked.attr('id'));
-		var valid = [];
-		switch (chess_class) {
-			case 'pawns':
-				valid.push(picked_id-10);
-				break;
-			case 'cannons':
-				// up
-				var up = picked_id-10;
-				while ($('#'+(up)).children().length == 0 && up > 0) {
-					valid.push(up);
-					up -= 10;
-				}
-				// down
-				var down = picked_id+10;
-				while ($('#'+(down)).children().length == 0 && down < 99) {
-					valid.push(down);
-					down += 10;
-				}
-				// left
-				var left = picked_id-1;
-				while ($('#'+(left)).children().length == 0 && left >= Math.floor(picked_id/10)*10) {
-					valid.push(left);
-					left -= 1;
-				}
-				// right
-				var right = picked_id+1;
-				while ($('#'+(right)).children().length == 0 && right <= Math.ceil(picked_id/10)*10-2) {
-					valid.push(right);
-					right += 1;
-				}
-				break;
-			case 'rooks':
-				// up
-				var up = picked_id-10;
-				while ($('#'+(up)).children().length == 0 && up > 0) {
-					valid.push(up);
-					up -= 10;
-				}
-				// down
-				var down = picked_id+10;
-				while ($('#'+(down)).children().length == 0 && down < 99) {
-					valid.push(down);
-					down += 10;
-				}
-				// left
-				var left = picked_id-1;
-				while ($('#'+(left)).children().length == 0 && left >= Math.floor(picked_id/10)*10) {
-					valid.push(left);
-					left -= 1;
-				}
-				// right
-				var right = picked_id+1;
-				while ($('#'+(right)).children().length == 0 && right <= Math.ceil(picked_id/10)*10-2) {
-					valid.push(right);
-					right += 1;
-				}
-				break;
-			case 'knights':
-				break;
-			case 'elephants':
-				break;
-			case 'advisors':
-				break;
-			case 'general':
-				break;
-		}
-		return valid;
-	}
-
-	// whether target is valid
-	function follow_rules(picked, target) {
-		const picked_id = parseInt(picked.attr('id'));
-		const target_id = parseInt(target.attr('id'));
-		var follow = false;
-		// avoid to target to the original spot
-		if (picked_id == target_id) {
-			return follow;
-		}
-		if (valid_target(picked).includes(target_id)) {
-			follow = true;
-		}
-		return follow;
-	}
-
 });
