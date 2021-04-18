@@ -146,7 +146,7 @@ body {
   border-radius: 50%;
 }
 
-.chessman_black {
+.chess_black {
   display: inline-block;
   font-size: 27px;
   width: 54px;
@@ -158,15 +158,15 @@ body {
   color: #5C8823;
 }
 
-.chessman_black:hover {
+.chess_black:hover {
   cursor: pointer;
 }
 
-.chessman_black:active {
+.chess_black:active {
   background-color: #ffeaad;
 }
 
-.chessman_red {
+.chess_red {
   display: inline-block;
   font-size: 27px;
   width: 54px;
@@ -178,11 +178,11 @@ body {
   color: #E96C62;
 }
 
-.chessman_red:hover {
+.chess_red:hover {
   cursor: pointer;
 }
 
-.chessman_red:active {
+.chess_red:active {
   background-color: #ffeaad;
 }
 
@@ -201,10 +201,17 @@ body {
   vertical-align: top;
 }
 
-.valid_target {
+.valid_target::after {
+  content: '';
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.05);
-  -webkit-transform: scale(0.6);
-          transform: scale(0.6);
 }
 
 .valid_target:hover {

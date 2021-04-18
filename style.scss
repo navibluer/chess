@@ -133,13 +133,13 @@ body {
 	height: $check_size;
 	border-radius: 50%;
 }
-@mixin chessman($color) {
+@mixin chess($color) {
 	display: inline-block;
-	$chessman_size: 0.9;
-	font-size: $check_size*$chessman_size/2;
-	width: $check_size*$chessman_size;
-	height: $check_size*$chessman_size;
-	margin: $check_size*(1-$chessman_size)/2;
+	$chess_size: 0.9;
+	font-size: $check_size*$chess_size/2;
+	width: $check_size*$chess_size;
+	height: $check_size*$chess_size;
+	margin: $check_size*(1-$chess_size)/2;
 	background-color: $bg_color;
 	border-radius: 50%;
 	border: $border_base*12 double $color;
@@ -153,11 +153,11 @@ body {
 		background-color: darken($bg_color, 10%);
 	}
 }
-.chessman_black {
-	@include chessman(#5C8823);
+.chess_black {
+	@include chess(#5C8823);
 }
-.chessman_red {
-	@include chessman((#E96C62))
+.chess_red {
+	@include chess((#E96C62))
 }
 .active {
 	background-color: darken($bg_color, 2%);
@@ -171,8 +171,17 @@ body {
 	vertical-align: top;
 }
 .valid_target {
-	background-color: rgba($color: #000000, $alpha: .05);
-	transform: scale(.6);
+	&::after{
+		content: '';
+		width: $check_size*.6;
+		height: $check_size*.6;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: 50%;
+		background-color: rgba($color: #000000, $alpha: .05);
+	}
 	&:hover {
 		cursor: pointer;
 	}

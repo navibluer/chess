@@ -1,0 +1,88 @@
+{
+	"chess_array": [
+		{
+			"team": "black",
+			"class": "pawns",
+			"content": "<span class='chess_black pawns'>卒</span>",
+			"initial_pos": [30, 32, 34, 36, 38]
+		},
+		{
+			"team": "red",
+			"class": "pawns",
+			"content": "<span class='chess_red pawns'>兵</span>",
+			"initial_pos": [60, 62, 64, 66, 68]
+		},
+		{
+			"team": "black",
+			"class": "cannons",
+			"content": "<span class='chess_black cannons'>包</span>",
+			"initial_pos": [21, 27]
+		},
+		{
+			"team": "red",
+			"class": "cannons",
+			"content": "<span class='chess_red cannons'>炮</span>",
+			"initial_pos": [71, 77]
+		},
+		{
+			"team": "black",
+			"class": "rooks",
+			"content": "<span class='chess_black rooks'>車</span>",
+			"initial_pos": [0, 8]
+		},
+		{
+			"team": "red",
+			"class": "rooks",
+			"content": "<span class='chess_red rooks'>俥</span>",
+			"initial_pos": [0, 8]
+		},
+		{
+			"team": "black",
+			"class": "knights",
+			"content": "<span class='chess_black knights'>馬</span>",
+			"initial_pos": [1, 7]
+		},
+		{
+			"team": "red",
+			"class": "knights",
+			"content": "<span class='chess_red knights'>傌</span>",
+			"initial_pos": [91, 97]
+		},
+		{
+			"team": "black",
+			"class": "elephants",
+			"content": "<span class='chess_black elephants'>象</span>",
+			"initial_pos": [2, 6]
+		},
+		{
+			"team": "red",
+			"class": "elephants",
+			"content": "<span class='chess_red elephants'>相</span>",
+			"initial_pos": [92, 96]
+		},
+		{
+			"team": "black",
+			"class": "advisors",
+			"content": "<span class='chess_black advisors'>士</span>",
+			"initial_pos": [3, 5]
+		},
+		{
+			"team": "red",
+			"class": "advisors",
+			"content": "<span class='chess_red advisors'>仕</span>",
+			"initial_pos": [93, 95]
+		},
+		{
+			"team": "black",
+			"class": "general",
+			"content": "<span class='chess_black general'>將</span>",
+			"initial_pos": [4]
+		},
+		{
+			"team": "red",
+			"class": "general",
+			"content": "<span class='chess_red general'>帥</span>",
+			"initial_pos": [94]
+		}
+	]
+}
